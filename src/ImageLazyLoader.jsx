@@ -2,7 +2,6 @@
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { TweenMax } from 'gsap';
 // styles
 import './picture-lazy.css';
 
@@ -18,7 +17,7 @@ const getUniqueArray = a => [...new Set(a)];
 
 const pathStringBlur = ({ path, handle, type = '' }) => {
   const format = type === '' ? '' : `/output=format:${type}`;
-  return `${path}/resize=w:50${format}/quality=value:5/compress/${handle}`;
+  return `${path}/resize=w:40${format}/quality=value:6/compress/blur=amount:5/${handle}`;
 };
 
 const pathString = ({ path, handle, resizeWidth, type = '' }) => {
@@ -68,18 +67,29 @@ const generateSourceSet = ({
 
 /** Responsive picture component based on strategy outlined here: https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/#the-fluid-and-variable-sized-image-use-cases */
 
-class ImageLazyLoader extends PureComponent {
-  componentDidMount() {
-    setTimeout(() => {
-      this.imageElement.src = this.imageElement.dataset.src;
-      this.sourceWebp.srcset = this.sourceWebp.dataset.srcset;
-      this.sourceDefault.srcset = this.sourceDefault.dataset.srcset;
-      TweenMax.to(this.imageElement, 0.7, {
-        delay: 1,
-        filter: 'blur(0px)'
-      });
-    }, 20);
+class Picture extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.srcset = null;
+    this.srcsetWebp = null;
+    this.srcsetBlur = null;
+    this.srcsetWebpBlur = null;
   }
+
+  componentDidMount() {
+    if (this.props.isLazy) {
+      this.timeOut = setTimeout(() => {
+        this.imageElement.src = this.imageElement.dataset.originalsrc;
+        this.sourceWebp.srcset = this.sourceWebp.dataset.originalsrcset;
+        this.sourceDefault.srcset = this.sourceDefault.dataset.originalsrcset;
+      }, 20);
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeOut);
+  }
+
   render() {
     const {
       width,
@@ -90,26 +100,29 @@ class ImageLazyLoader extends PureComponent {
       path,
       className,
       handle,
-      objectFitMode
+      objectFitMode,
+      isLazy
     } = this.props;
-    const srcsetWebpBlur = generateSourceSet({
-      path,
-      handle,
-      width,
-      breakpointWidths,
-      hiDPIMultiplier,
-      type: 'webp',
-      blur: true
-    });
-    const srcsetBlur = generateSourceSet({
-      path,
-      handle,
-      width,
-      breakpointWidths,
-      hiDPIMultiplier,
-      blur: true
-    });
-    const srcsetWebp = generateSourceSet({
+    if (isLazy) {
+      this.srcsetWebpBlur = generateSourceSet({
+        path,
+        handle,
+        width,
+        breakpointWidths,
+        hiDPIMultiplier,
+        type: 'webp',
+        blur: true
+      });
+      this.srcsetBlur = generateSourceSet({
+        path,
+        handle,
+        width,
+        breakpointWidths,
+        hiDPIMultiplier,
+        blur: true
+      });
+    }
+    this.srcsetWebp = generateSourceSet({
       path,
       handle,
       width,
@@ -118,7 +131,7 @@ class ImageLazyLoader extends PureComponent {
       type: 'webp',
       blur: false
     });
-    const srcset = generateSourceSet({
+    this.srcset = generateSourceSet({
       path,
       handle,
       width,
@@ -126,7 +139,6 @@ class ImageLazyLoader extends PureComponent {
       hiDPIMultiplier,
       blur: false
     });
-    const resizeWidth = width;
     const objectFitFallback = !isObjectfitSupported() && objectFitMode;
     return (
       <Fragment>
@@ -142,26 +154,30 @@ class ImageLazyLoader extends PureComponent {
               ref={source => {
                 this.sourceWebp = source;
               }}
-              srcSet={srcsetWebpBlur}
-              data-srcset={srcsetWebp}
+              srcSet={isLazy ? this.srcsetWebpBlur : this.srcsetWebp}
+              data-originalsrcset={this.srcsetWebp}
               sizes={sizes}
-              type='image/webp'
+              type="image/webp"
             />
             <source
               ref={source => {
                 this.sourceDefault = source;
               }}
-              srcSet={srcsetBlur}
-              data-srcset={srcset}
+              srcSet={isLazy ? this.srcsetBlur : this.srcset}
+              data-originalsrcset={this.srcset}
               sizes={sizes}
-              type='image/jpeg'
+              type="image/jpeg"
             />
             <img
               ref={img => {
                 this.imageElement = img;
               }}
-              src={pathStringBlur({ path, handle })}
-              data-src={pathString({ path, handle, resizeWidth })}
+              src={
+                isLazy
+                  ? pathStringBlur({ path, handle })
+                  : pathString({ path, handle, width })
+              }
+              data-originalsrc={pathString({ path, handle, width })}
               alt={alt}
             />
           </picture>
@@ -173,7 +189,7 @@ class ImageLazyLoader extends PureComponent {
               backgroundImage: `url(${pathString({
                 path,
                 handle,
-                resizeWidth
+                width
               })})`
             }}
           />
@@ -183,7 +199,7 @@ class ImageLazyLoader extends PureComponent {
   }
 }
 
-ImageLazyLoader.propTypes = {
+Picture.propTypes = {
   width: PropTypes.number,
   breakpointWidths: PropTypes.array,
   alt: PropTypes.string,
@@ -195,7 +211,7 @@ ImageLazyLoader.propTypes = {
   objectFitMode: PropTypes.bool
 };
 
-ImageLazyLoader.defaultProps = {
+Picture.defaultProps = {
   /* pixel width at max viewport 1400 */
   width: 1400,
   /* variant widths to serve as alternatives to 'width' prop */
@@ -206,7 +222,8 @@ ImageLazyLoader.defaultProps = {
   hiDPIMultiplier: 1.5,
   path: '//media.graphcms.com',
   className: '',
-  objectFitMode: false
+  objectFitMode: false,
+  isLazy: true
 };
 
-export default ImageLazyLoader;
+export default Picture;

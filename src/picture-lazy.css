@@ -1,5 +1,4 @@
 .picture img {
-  filter: blur(4px);
   width: 100%;
   height: auto;
 }
