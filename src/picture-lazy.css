@@ -1,0 +1,30 @@
+.picture img {
+  filter: blur(4px);
+  width: 100%;
+  height: auto;
+}
+.picture_objectFit {
+  width: 100%;
+  height: 100%;
+}
+.picture_objectFit img {
+  width: 100%;
+  height: 100%;
+  max-width: initial;
+  object-fit: cover;
+  object-position: 50% 25%;
+}
+.objectFitFallback {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.objectFitPicture {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
