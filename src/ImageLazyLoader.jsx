@@ -1,7 +1,6 @@
 // Dependencies
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 // styles
 import './picture-lazy.css';
 
@@ -144,11 +143,9 @@ class Picture extends PureComponent {
       <Fragment>
         {!objectFitFallback && (
           <picture
-            className={classnames(
-              'picture',
-              objectFitMode && 'picture_objectFit',
-              className
-            )}
+            className={`picture ${objectFitMode ? 'picture_objectFit' : ''} ${
+              className ? className : ''
+            }`}
           >
             <source
               ref={source => {
