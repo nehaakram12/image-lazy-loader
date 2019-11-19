@@ -1,8 +1,6 @@
-// Dependencies
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-// styles
-import './picture-lazy.css';
+import './main.css';
 
 const isObjectfitSupported = (element = 'img') => {
   if (typeof document !== 'undefined') {
@@ -10,6 +8,35 @@ const isObjectfitSupported = (element = 'img') => {
     return testElem.style.objectFit !== undefined;
   }
   return true;
+};
+
+const intersectionListeners = [];
+let intersectionObserver = null;
+
+const getIntersectionObserver = () => {
+  if (intersectionObserver === null && typeof window !== 'undefined') {
+    intersectionObserver = new IntersectionObserver(
+      items => {
+        items.forEach(item => {
+          intersectionListeners.forEach(listener => {
+            if (listener.item === item.target) {
+              if (item.intersectionRatio > 0 || item.isIntersecting) {
+                intersectionObserver.unobserve(listener.item);
+                listener.callback();
+              }
+            }
+          });
+        });
+      },
+      { rootMargin: '200px', threshold: 0.3 }
+    );
+  }
+  return intersectionObserver;
+};
+
+const listenToIntersections = (item, callback) => {
+  getIntersectionObserver().observe(item);
+  intersectionListeners.push({ item, callback });
 };
 
 const getUniqueArray = a => [...new Set(a)];
@@ -64,7 +91,10 @@ const generateSourceSet = ({
   return getUniqueArray([hiDPISource, ...sourceSetList]).join(',');
 };
 
-/** Responsive picture component based on strategy outlined here: https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/#the-fluid-and-variable-sized-image-use-cases */
+/** Responsive picture component based on strategy outlined here:
+ * https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/#the-fluid-and-variable-sized-image-use-cases
+ * https://www.smashingmagazine.com/2018/01/deferring-lazy-loading-intersection-observer-api/
+ *  */
 
 class Picture extends PureComponent {
   constructor(props) {
@@ -73,21 +103,32 @@ class Picture extends PureComponent {
     this.srcsetWebp = null;
     this.srcsetBlur = null;
     this.srcsetWebpBlur = null;
-  }
-
-  componentDidMount() {
-    if (this.props.isLazy) {
-      this.timeOut = setTimeout(() => {
-        this.imageElement.src = this.imageElement.dataset.originalsrc;
-        this.sourceWebp.srcset = this.sourceWebp.dataset.originalsrcset;
-        this.sourceDefault.srcset = this.sourceDefault.dataset.originalsrcset;
-      }, 20);
+    let isVisible = false;
+    let IOSupported = false;
+    if (typeof window !== 'undefined' && window.IntersectionObserver) {
+      IOSupported = true;
     }
+    this.state = {
+      isVisible: (isVisible || !IOSupported) && !this.props.isLazy,
+      IOSupported
+    };
   }
 
   componentWillUnmount() {
     clearTimeout(this.timeOut);
   }
+
+  handleIntersection = element => {
+    if (this.state.IOSupported && element) {
+      listenToIntersections(element, () => {
+        this.setState({ isVisible: true });
+      });
+    }
+  };
+
+  removeBlurryImage = () => {
+    this.blurryImageElement.style.opacity = 0;
+  };
 
   render() {
     const {
@@ -142,46 +183,59 @@ class Picture extends PureComponent {
     return (
       <Fragment>
         {!objectFitFallback && (
-          <picture
-            className={`picture ${objectFitMode ? 'picture_objectFit' : ''} ${
-              className ? className : ''
-            }`}
+          <div
+            ref={e => this.handleIntersection(e)}
+            className={`wrapper ${className ? className : ''}`}
           >
-            <source
-              ref={source => {
-                this.sourceWebp = source;
-              }}
-              srcSet={isLazy ? this.srcsetWebpBlur : this.srcsetWebp}
-              data-originalsrcset={this.srcsetWebp}
-              sizes={sizes}
-              type="image/webp"
-            />
-            <source
-              ref={source => {
-                this.sourceDefault = source;
-              }}
-              srcSet={isLazy ? this.srcsetBlur : this.srcset}
-              data-originalsrcset={this.srcset}
-              sizes={sizes}
-              type="image/jpeg"
-            />
-            <img
-              ref={img => {
-                this.imageElement = img;
-              }}
-              src={
-                isLazy
-                  ? pathStringBlur({ path, handle })
-                  : pathString({ path, handle, width })
-              }
-              data-originalsrc={pathString({ path, handle, width })}
-              alt={alt}
-            />
-          </picture>
+            <picture
+              className={`picture ${objectFitMode ? 'picture_objectFit' : ''}`}
+            >
+              {isLazy && this.state.IOSupported && (
+                <img
+                  ref={img => {
+                    this.blurryImageElement = img;
+                  }}
+                  src={pathStringBlur({ path, handle })}
+                  alt={alt}
+                  className={'blurryImage'}
+                />
+              )}
+              {this.state.isVisible && (
+                <Fragment>
+                  <source
+                    ref={source => {
+                      this.sourceWebp = source;
+                    }}
+                    srcSet={this.srcsetWebp}
+                    sizes={sizes}
+                    type="image/webp"
+                  />
+                  <source
+                    ref={source => {
+                      this.sourceDefault = source;
+                    }}
+                    srcSet={this.srcset}
+                    sizes={sizes}
+                    type="image/jpeg"
+                  />
+                  <img
+                    ref={img => {
+                      this.imageElement = img;
+                    }}
+                    src={pathString({ path, handle, width })}
+                    alt={alt}
+                    onLoad={() => {
+                      this.removeBlurryImage();
+                    }}
+                  />
+                </Fragment>
+              )}
+            </picture>
+          </div>
         )}
         {objectFitFallback && (
           <div
-            className={classnames('objectFitFallback', className)}
+            className={`objectFitFallback ${className ? className : ''}`}
             style={{
               backgroundImage: `url(${pathString({
                 path,

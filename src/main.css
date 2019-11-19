@@ -1,12 +1,21 @@
-.picture img {
-  width: 100%;
-  height: auto;
-}
-.picture_objectFit {
+.wrapper {
+  position: relative;
   width: 100%;
   height: 100%;
 }
-.picture_objectFit img {
+.wrapper .picture img {
+  width: 100%;
+  height: auto;
+}
+.wrapper .picture img.blurryImage {
+  position: absolute;
+  transition: opacity ease-out 0.5s 1s;
+}
+.wrapper .picture_objectFit {
+  width: 100%;
+  height: 100%;
+}
+.wrapper .picture_objectFit img {
   width: 100%;
   height: 100%;
   max-width: initial;
