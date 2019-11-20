@@ -1,6 +1,6 @@
 {
   "name": "@nehaakram12/image-lazy-loader",
-  "version": "1.2.2",
+  "version": "1.2.4",
   "description": "React component for lazy loading Graph CMS images",
   "license": "MIT",
   "repository": {
@@ -14,7 +14,14 @@
   "homepage": "https://github.com/nehaakram12/image-lazy-loader#readme",
   "keywords": [
     "image-lazy-loader",
+    "react-image-lazy-loader",
+    "lazy loader",
+    "image lazy loader",
+    "react image lazy loader",
+    "npm image lazy loader",
+    "graph cms lazy loader",
     "graphcms",
+    "graph-cms",
     "npm",
     "package",
     "nehaakram12"

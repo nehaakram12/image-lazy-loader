@@ -2,25 +2,29 @@
 
 ### Features
 
-* Performance efficient, reduces initial load time by loading low resolution blur images on page load
-* Optimal sized images generated automatically for different devices and screen sizes.
-* Preview images whilst loading in form of blurred thumbnails
-* Lazy loading enabling original HD images to download only when they are in the current viewport
+- Performance efficient, reduces initial load time by loading low resolution
+  blur images on page load
+- Optimal sized images generated automatically for different devices and screen
+  sizes.
+- Preview images whilst loading in form of blurred thumbnails
+- Lazy loading enabling original HD images to download only when they are in the
+  current viewport
 
 ### Note
 
-This is a work in progress, not ready for production yet. Your feedback would be appreciated, custom features can also be requested.
+This is a work in progress, not ready for production yet. Your feedback would be
+appreciated, custom features can also be requested.
 
 ### Requirements
 
-Currently, works only for image urls from graph media cms.
-Support for other image sources will be added as enhanced feature later on.
+Currently, works only for image urls from graph media cms. Support for other
+image sources will be added as enhanced feature later on.
 
 ### Working
 
 On initial page load, images are downloaded with low resolution and blur filter
-from graph cms. Once the image element is in active viewport, the blurred image is replaced with
-original HD image and blur effect is removed.
+from graph cms. Once the image element is in active viewport, the blurred image
+is replaced with original HD image and blur effect is removed.
 
 ### Installation
 
@@ -28,22 +32,20 @@ npm i @nehaakram12/image-lazy-loader
 
 ### Demo
 
-![Code Sandbox Demo](https://codesandbox.io/s/lazy-image-loader-gallery-x5br8)
-
+[Code Sandbox Demo](https://codesandbox.io/s/lazy-image-loader-gallery-x5br8)
 
 ### Props
 
-| Name | Type | Description |
-| ----------------------- | ---------------- | ------------------------------------------------------------------------------- |
-| `handle` | `string` | Graph cms uses handle an identifier for images which is required to fetch images. |
-| `alt` | `string` | Passed to the`img` element for alternate prop |
-| `className` | `string\|object` | Passed to the wrapper div of image.Object must follow react css rules |
-| `width` | `number` | Resolution need to be passed in order to display image. Defaults to `1400`. |
-| `objectFitMode` | `bool` | Fit image to be contained inside parent container. Defaults to `false`. |
-| `isLazy` | `bool` | Load images lazily, low to high resolution when active in viewport. Defaults to `true` |
-| `breakpointWidths` | `array` | Array of screen breakpoints for fluid image rendering and optimal sizes. Defaults to `[320, 640, 1024]` |
-
-
+| Name               | Type             | Description                                                                                                                                                |
+| ------------------ | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `handle`           | `string`         | Graph cms uses handle an identifier for images which is required to fetch images.                                                                          |
+| `alt`              | `string`         | Passed to the`img` element for alternate prop                                                                                                              |
+| `className`        | `string\|object` | Passed to the wrapper div of image.Object must follow react css rules                                                                                      |
+| `width`            | `number`         | Resolution need to be passed in order to display image. Defaults to `1400`.                                                                                |
+| `height`           | `number`         | Optional value in pixels if fixed height needs to be added to image elements. Defaults to `null`. See styling instructions below for better understanding. |
+| `objectFitMode`    | `bool`           | Fit image to be contained inside parent container. Defaults to `false`.                                                                                    |
+| `isLazy`           | `bool`           | Load images lazily, low to high resolution when active in viewport. Defaults to `true`                                                                     |
+| `breakpointWidths` | `array`          | Array of screen breakpoints for fluid image rendering and optimal sizes. Defaults to `[320, 640, 1024]`                                                    |
 
 ### Example Usage
 
@@ -71,14 +73,28 @@ const Gallery = ({ data }) => {
 };
 
 export default Gallery;
-
 ```
 
 ![Demo Screenshot](https://github.com/nehaakram12/image-lazy-loader/blob/master/demo.PNG)
 
+### Css and Styling
 
-### Inspired by: 
-* [graphcms-image](https://github.com/GraphCMS/graphcms-image)
-* [Responsive and fluid images](https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/#the-fluid-and-variable-sized-image-use-cases)
-* [Lazy Loading using Intersection Observer](https://www.smashingmagazine.com/2018/01/deferring-lazy-loading-intersection-observer-api)
+A classname can be passed to the Picture component that is attached to the
+wrapper element.
 
+- No user defined height: Since blur and original images are absolutely
+  positioned relative to the wrapper, in case no height is provided by user,
+  they are set to have 56.25% padding from bottom.
+
+- User defined height using height prop: If required, it is recommended that you
+  style the fixed height in pixels using the height prop provided as a feature.
+
+- User defined height using css: In case height is set inside the class object
+  being passed, please add `padding-bottom: 0% !important` along with it to
+  avoid design inconsistency.
+
+### Inspired by:
+
+- [graphcms-image](https://github.com/GraphCMS/graphcms-image)
+- [Responsive and fluid images](https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/#the-fluid-and-variable-sized-image-use-cases)
+- [Lazy Loading using Intersection Observer](https://www.smashingmagazine.com/2018/01/deferring-lazy-loading-intersection-observer-api)
