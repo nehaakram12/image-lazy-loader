@@ -14,7 +14,7 @@ This is a work in progress, not ready for production yet. Your feedback would be
 ### Requirements
 
 Currently, works only for image urls from graph media cms.
-Support for other image sources will be added as enhanced feature.
+Support for other image sources will be added as enhanced feature later on.
 
 ### Working
 
@@ -25,6 +25,20 @@ original HD image and blur effect is removed.
 ### Installation
 
 npm i @nehaakram12/image-lazy-loader
+
+### Props
+
+| Name | Type | Description |
+| ----------------------- | ---------------- | ------------------------------------------------------------------------------- |
+| `handle` | `string` | Graph cms uses handle an identifier for images which is required to fetch images. |
+| `alt` | `string` | Passed to the`img` element for alternate prop |
+| `className` | `string\|object` | Passed to the wrapper div of image.Object must follow react css rules |
+| `width` | `number` | Resolution need to be passed in order to display image. Defaults to `1400`. |
+| `objectFitMode` | `bool` | Fit image to be contained inside parent container. Defaults to `false`. |
+| `isLazy` | `bool` | Load images lazily, low to high resolution when active in viewport. Defaults to `true` |
+| `breakpointWidths` | `array` | Array of screen breakpoints for fluid image rendering and optimal sizes. Defaults to `[320, 640, 1024]` |
+
+
 
 ### Example Usage
 
@@ -58,7 +72,7 @@ export default Gallery;
 
 
 ### Inspired by: 
-* https://github.com/GraphCMS/graphcms-image
-* https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/#the-fluid-and-variable-sized-image-use-cases
-* https://www.smashingmagazine.com/2018/01/deferring-lazy-loading-intersection-observer-ap
+* [graphcms-image](https://github.com/GraphCMS/graphcms-image)
+* [Responsive and fluid images](https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/#the-fluid-and-variable-sized-image-use-cases)
+* [Lazy Loading using Intersection Observer](https://www.smashingmagazine.com/2018/01/deferring-lazy-loading-intersection-observer-api)
 
