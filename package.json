@@ -1,10 +1,17 @@
 {
-  "name": "@nehaakram12/image-lazy-loader",
-  "version": "1.2.1",
+  "name": "image-lazy-loader",
+  "version": "1.2.2",
   "description": "React component for lazy loading Graph CMS images",
   "license": "MIT",
-  "repository": "nehaakram12/image-lazy-loader",
-  "main": "./lib/ImageLazyLoader.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nehaakram12/image-lazy-loader"
+  },
+  "author": "Neha Akram (https://www.linkedin.com/in/neha-akram)",
+  "bugs": {
+    "url": "https://github.com/nehaakram12/image-lazy-loader/issues"
+  },
+  "homepage": "https://github.com/nehaakram12/image-lazy-loader#readme",
   "keywords": [
     "image-lazy-loader",
     "graphcms",
@@ -12,6 +19,7 @@
     "package",
     "nehaakram12"
   ],
+  "main": "./lib/ImageLazyLoader.js",
   "scripts": {
     "build": "webpack"
   },
@@ -28,10 +36,6 @@
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.0",
     "mini-css-extract-plugin": "^0.8.0",
-    "path": "^0.12.7",
-    "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
     "webpack": "^4.5.0",
     "webpack-cli": "^3.2.1"
   }

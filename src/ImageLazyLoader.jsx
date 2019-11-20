@@ -92,8 +92,8 @@ const generateSourceSet = ({
 };
 
 /** Responsive picture component based on strategy outlined here:
- * https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/#the-fluid-and-variable-sized-image-use-cases
- * https://www.smashingmagazine.com/2018/01/deferring-lazy-loading-intersection-observer-api/
+ * i/https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/#the-fluid-and-variable-sized-image-use-cases
+ * https://www.smashingmagazine.com/2018/01/deferring-lazy-loading-intersection-observer-ap
  *  */
 
 class Picture extends PureComponent {
@@ -278,3 +278,14 @@ Picture.defaultProps = {
 };
 
 export default Picture;
+
+| Name | Type | Description |
+| ----------------------- | ---------------- | ------------------------------------------------------------------------------- |
+| `handle` | `string` | Graph cms uses handle an identifier for images which is required to fetch images. |
+| `alt` | `string` | Passed to the`img` element for alternate prop |
+| `className` | `string\|object` | Passed to the wrapper div of image.Object must follow react css rules |
+| `width` | `bool` | Resolution need to be passed in order to display image. Defaults to 1400. |
+| `objectFitMode` | `bool` | Fit image to be contained inside parent container. Defaults to false. |
+| `isLazy` | `bool` | Load images lazily, low to high resolution when active in viewport. Defaults to true |
+| `breakpointWidths` | `bool` | Array of screen breakpoints for fluid image rendering and optimal sizes. Defaults to `[320, 640, 1024]` |
+
