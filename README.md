@@ -54,6 +54,9 @@ export default Gallery;
 
 ```
 
+![alt text](https://github.com/nehaakram12/image-lazy-loader/blob/master/demo.PNG)
+
+
 ### Inspired by: 
 * https://github.com/GraphCMS/graphcms-image
 * https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/#the-fluid-and-variable-sized-image-use-cases
