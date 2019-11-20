@@ -47,6 +47,7 @@ The package can be integrated inside a react component as follows:
 ```jsx
 import React from 'react';
 import Picture from '@nehaakram12/image-lazy-loader';
+import '@nehaakram12/image-lazy-loader/lib/main.css';
 
 const Gallery = ({ data }) => {
   return (
