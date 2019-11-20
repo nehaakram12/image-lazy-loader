@@ -1,10 +1,5 @@
 # image-lazy-loader
 
-Inspired by: 
-* https://github.com/GraphCMS/graphcms-image
-* https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/#the-fluid-and-variable-sized-image-use-cases
-* https://www.smashingmagazine.com/2018/01/deferring-lazy-loading-intersection-observer-ap
-
 ### Features
 
 * Performance efficient, reduces initial load time by loading low resolution blur images on page load
@@ -27,18 +22,40 @@ On initial page load, images are downloaded with low resolution and blur filter
 from graph cms. Once the image element is in active viewport, the blurred image is replaced with
 original HD image and blur effect is removed.
 
-### How to Install
+### Installation
 
 npm i @nehaakram12/image-lazy-loader
 
-### How to integrate in react code
+### Example Usage
 
-Example Usage:
+The package can be integrated inside a react component as follows:
 
 ```jsx
+import React from 'react';
 import Picture from '@nehaakram12/image-lazy-loader';
 
-<Picture className={styles.categoryImage} handle={handle} width={400}
-alt={title} breakpointWidths={[320]} sizes={'(min-width: 1000px) 50vw, 100vw'}
-objectFitMode />
+const Gallery = ({ data }) => {
+  return (
+    <div className={galleryWrapper}>
+      {data.map(item => (
+        <Picture
+          handle={item.Picturehandle}
+          className={'galleryImage'}
+          objectFitMode
+          width={1300}
+          alt={item.postTitle}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default Gallery;
+
 ```
+
+### Inspired by: 
+* https://github.com/GraphCMS/graphcms-image
+* https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/#the-fluid-and-variable-sized-image-use-cases
+* https://www.smashingmagazine.com/2018/01/deferring-lazy-loading-intersection-observer-ap
+
