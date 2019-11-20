@@ -26,6 +26,11 @@ original HD image and blur effect is removed.
 
 npm i @nehaakram12/image-lazy-loader
 
+### Demo
+
+![Code Sandbox Demo](https://codesandbox.io/s/lazy-image-loader-gallery-x5br8)
+
+
 ### Props
 
 | Name | Type | Description |
@@ -69,7 +74,7 @@ export default Gallery;
 
 ```
 
-![alt text](https://github.com/nehaakram12/image-lazy-loader/blob/master/demo.PNG)
+![Demo Screenshot](https://github.com/nehaakram12/image-lazy-loader/blob/master/demo.PNG)
 
 
 ### Inspired by: 
