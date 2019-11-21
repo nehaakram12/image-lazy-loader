@@ -141,8 +141,7 @@ class Picture extends PureComponent {
       className,
       handle,
       objectFitMode,
-      isLazy,
-      height
+      isLazy
     } = this.props;
     if (isLazy) {
       this.srcsetWebpBlur = generateSourceSet({
@@ -187,7 +186,6 @@ class Picture extends PureComponent {
           <div
             ref={e => this.handleIntersection(e)}
             className={`wrapper ${className ? className : ''}`}
-            style={height ? { height: height } : { paddingBottom: '56.25%' }}
           >
             <picture
               className={`picture ${objectFitMode ? 'picture_objectFit' : ''}`}
@@ -254,7 +252,6 @@ class Picture extends PureComponent {
 
 Picture.propTypes = {
   width: PropTypes.number,
-  height: PropTypes.number,
   breakpointWidths: PropTypes.array,
   alt: PropTypes.string,
   sizes: PropTypes.string,
@@ -277,8 +274,7 @@ Picture.defaultProps = {
   path: '//media.graphcms.com',
   className: '',
   objectFitMode: false,
-  isLazy: true,
-  height: null
+  isLazy: true
 };
 
 export default Picture;

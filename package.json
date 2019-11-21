@@ -1,6 +1,6 @@
 {
   "name": "@nehaakram12/image-lazy-loader",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "React component for lazy loading Graph CMS images",
   "license": "MIT",
   "repository": {

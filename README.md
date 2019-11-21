@@ -75,23 +75,21 @@ const Gallery = ({ data }) => {
 export default Gallery;
 ```
 
-![Demo Screenshot](https://github.com/nehaakram12/image-lazy-loader/blob/master/demo.PNG)
+![Demo Screenshot](https://media.graphcms.com/MBMmBL5fQwqyH6BATtbo)
 
 ### Css and Styling
 
 A classname can be passed to the Picture component that is attached to the
 wrapper element.
 
-- No user defined height: Since blur and original images are absolutely
-  positioned relative to the wrapper, in case no height is provided by user,
-  they are set to have 56.25% padding from bottom.
+- No height passed in className prop object: By default `padding-bottom: 56.25%`
+  set on wrapper div.
 
-- User defined height using height prop: If required, it is recommended that you
-  style the fixed height in pixels using the height prop provided as a feature.
+- Set custom height using className prop object: Pass
+  `padding-bottom: 0% !important` in addition to the height in order to
+  overwrite the default styles.
 
-- User defined height using css: In case height is set inside the class object
-  being passed, please add `padding-bottom: 0% !important` along with it to
-  avoid design inconsistency.
+  Feel free to style the image elements by overwriting the default css.
 
 ### Inspired by:
 
