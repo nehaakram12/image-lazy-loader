@@ -1,6 +1,22 @@
 .item {
-  max-width: 48%;
+  max-width: 18%;
   display: inline-block;
-  padding: 1%;
+  padding: 0.5% 1%;
   height: 200px;
+  padding-bottom: 0% !important;
+  transition: width 2.5s, height 2.5s;
+}
+
+@media screen and (max-width: 480px) {
+  .item {
+    max-width: 31%;
+    height: 100px;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 900px) {
+  .item {
+    max-width: 23%;
+    height: 150px;
+  }
 }

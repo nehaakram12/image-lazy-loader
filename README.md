@@ -10,6 +10,8 @@
 - Lazy loading enabling original HD images to download only when they are in the
   current viewport
 
+![Demo Screenshot](https://media.graphcms.com/MBMmBL5fQwqyH6BATtbo)
+
 ### Note
 
 This is a work in progress, not ready for production yet. Your feedback would be
@@ -32,7 +34,7 @@ npm i @nehaakram12/image-lazy-loader
 
 ### Demo
 
-[Code Sandbox Demo](https://codesandbox.io/s/lazy-image-loader-gallery-x5br8)
+[Code Sandbox Demo](https://codesandbox.io/embed/lazy-image-loader-gallery-x5br8?fontsize=14&hidenavigation=1&theme=dark&view=preview)
 
 ### Props
 
@@ -74,8 +76,6 @@ const Gallery = ({ data }) => {
 
 export default Gallery;
 ```
-
-![Demo Screenshot](https://media.graphcms.com/MBMmBL5fQwqyH6BATtbo)
 
 ### Css and Styling
 

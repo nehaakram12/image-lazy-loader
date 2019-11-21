@@ -93,7 +93,7 @@ const generateSourceSet = ({
 
 /** Responsive picture component based on strategy outlined here:
  * i/https://www.smashingmagazine.com/2014/05/responsive-images-done-right-guide-picture-srcset/#the-fluid-and-variable-sized-image-use-cases
- * https://www.smashingmagazine.com/2018/01/deferring-lazy-loading-intersection-observer-ap
+ * https://www.smashingmagazine.com/2018/01/deferring-lazy-loading-intersection-observer-api
  *  */
 
 class Picture extends PureComponent {
