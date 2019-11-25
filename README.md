@@ -1,4 +1,26 @@
-# image-lazy-loader
+# @afiniti/image-lazy-load
+
+### Description
+
+React component for lazy loading Graph CMS Images in an optimal way that is
+performance efficient. On initial page load, images are downloaded with low
+resolution and blur filter from graph cms. Once the image element is in active
+viewport, the blurred image is replaced with original HD image and blur effect
+is removed.
+
+### Note
+
+This is a work in progress, not ready for production yet. Your feedback would be
+appreciated, custom features can also be requested.
+
+### Requirements
+
+Currently, works only for image urls from graph media cms. Support for other
+image sources will be added as enhanced feature later on.
+
+### Installation
+
+npm i @afiniti/image-lazy-load
 
 ### Features
 
@@ -11,26 +33,6 @@
   current viewport
 
 ![Demo Screenshot](https://media.graphcms.com/MBMmBL5fQwqyH6BATtbo)
-
-### Note
-
-This is a work in progress, not ready for production yet. Your feedback would be
-appreciated, custom features can also be requested.
-
-### Requirements
-
-Currently, works only for image urls from graph media cms. Support for other
-image sources will be added as enhanced feature later on.
-
-### Working
-
-On initial page load, images are downloaded with low resolution and blur filter
-from graph cms. Once the image element is in active viewport, the blurred image
-is replaced with original HD image and blur effect is removed.
-
-### Installation
-
-npm i @nehaakram12/image-lazy-loader
 
 ### Demo
 
@@ -55,8 +57,8 @@ The package can be integrated inside a react component as follows:
 
 ```jsx
 import React from 'react';
-import Picture from '@nehaakram12/image-lazy-loader';
-import '@nehaakram12/image-lazy-loader/lib/main.css';
+import Picture from '@afiniti/image-lazy-load';
+import '@afiniti/image-lazy-load/lib/main.css';
 
 const Gallery = ({ data }) => {
   return (
@@ -89,7 +91,17 @@ wrapper element.
   `padding-bottom: 0% !important` in addition to the height in order to
   overwrite the default styles.
 
-  Feel free to style the image elements by overwriting the default css.
+Note:
+
+- The default styles need to be imported in addition to the component import as
+  can be seen in above example.
+- Feel free to style the image elements by overwriting the default css.
+
+### Issues
+
+You can open issues in the
+[Bugs and Issues](https://github.com/nehaakram12/image-lazy-loader/issues)
+section on the connected repository.
 
 ### Inspired by:
 

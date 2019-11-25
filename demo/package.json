@@ -1,11 +1,11 @@
 {
-  "name": "lazy-image-loader-gallery",
+  "name": "lazy-image-load-gallery",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
-    "@nehaakram12/image-lazy-loader": "1.2.5",
+    "@afiniti/image-lazy-load": "0.0.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-scripts": "1.1.5"
