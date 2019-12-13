@@ -108,8 +108,13 @@ class Picture extends PureComponent {
     if (typeof window !== 'undefined' && window.IntersectionObserver) {
       IOSupported = true;
     }
+    if (this.props.isLazy) {
+      isVisible = isVisible || !IOSupported;
+    } else {
+      isVisible = true;
+    }
     this.state = {
-      isVisible: (isVisible || !IOSupported) && !this.props.isLazy,
+      isVisible: isVisible,
       IOSupported
     };
   }
@@ -229,6 +234,7 @@ class Picture extends PureComponent {
                         this.removeBlurryImage();
                       }
                     }}
+                    className={!isLazy ? 'noLazy' : ''}
                   />
                 </Fragment>
               )}
