@@ -225,7 +225,9 @@ class Picture extends PureComponent {
                     src={pathString({ path, handle, width })}
                     alt={alt}
                     onLoad={() => {
-                      this.removeBlurryImage();
+                      if (isLazy) {
+                        this.removeBlurryImage();
+                      }
                     }}
                   />
                 </Fragment>

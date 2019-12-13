@@ -1,6 +1,6 @@
 {
   "name": "@afiniti/image-lazy-load",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "React component for lazy loading Graph CMS Images. Optimizes initial page load time and provides optimal resolutions for different screen sizes. Loads blurry low resolution image initially which is later on replaced with HD images",
   "license": "MIT",
   "repository": {
