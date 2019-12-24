@@ -193,7 +193,9 @@ class Picture extends PureComponent {
             className={`wrapper ${className ? className : ''}`}
           >
             <picture
-              className={`picture ${objectFitMode ? 'picture_objectFit' : ''}`}
+              className={`picture ${objectFitMode ? 'picture_objectFit' : ''} ${
+                !isLazy ? 'noLazy' : ''
+              }`}
             >
               {isLazy && this.state.IOSupported && (
                 <img
