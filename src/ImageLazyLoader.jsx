@@ -114,7 +114,7 @@ class Picture extends PureComponent {
       isVisible = true;
     }
     this.state = {
-      isVisible: isVisible,
+      isVisible,
       IOSupported
     };
   }
@@ -148,6 +148,7 @@ class Picture extends PureComponent {
       objectFitMode,
       isLazy
     } = this.props;
+    const resizeWidth = Math.round(width * hiDPIMultiplier);
     if (isLazy) {
       this.srcsetWebpBlur = generateSourceSet({
         path,
@@ -229,7 +230,7 @@ class Picture extends PureComponent {
                     ref={img => {
                       this.imageElement = img;
                     }}
-                    src={pathString({ path, handle, width })}
+                    src={pathString({ path, handle, resizeWidth })}
                     alt={alt}
                     onLoad={() => {
                       if (isLazy) {
@@ -250,7 +251,7 @@ class Picture extends PureComponent {
               backgroundImage: `url(${pathString({
                 path,
                 handle,
-                width
+                resizeWidth
               })})`
             }}
           />
@@ -269,7 +270,8 @@ Picture.propTypes = {
   path: PropTypes.string,
   className: PropTypes.string,
   handle: PropTypes.string.isRequired,
-  objectFitMode: PropTypes.bool
+  objectFitMode: PropTypes.bool,
+  isLazy: PropTypes.bool
 };
 
 Picture.defaultProps = {
